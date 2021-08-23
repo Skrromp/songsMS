@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--  explicit support for annotation-driven MVC controllers 
+         e.g., @RequestMapping, @Controller -->
+    <mvc:annotation-driven/>
+
+    <!-- enable auto scanning feature: 
+         base-package: package, wo sich die Controller befinden. 
+         Spring wird dieses Vezeichnis scannen und die Beans, 
+         die, z.B., mit @RestController annotiert sind, finden und registrieren. -->
+    <context:component-scan base-package="htwb.ai"/>
+
+    <!-- Es kann nur eine Implementierung von IUserDAO angegeben werden:-->
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.hsqldb.jdbcDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:songsWS"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+
+
+
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:testHibernate.cfg.xml"/>
+    </bean>
+    <bean id="userDao" class="htwb.ai.repo.UserDao">
+        <constructor-arg>
+            <ref bean="sessionFactory"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="songDao" class="htwb.ai.repo.SongRepo">
+        <constructor-arg>
+            <ref bean="sessionFactory"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="songListDao" class="htwb.ai.repo.SongListRepo">
+        <constructor-arg>
+            <ref bean="sessionFactory"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="songListService" class="htwb.ai.service.SongListService">
+    </bean>
+
+    <bean id="userService" class="htwb.ai.service.AuthService">
+    </bean>
+
+    <bean id="songService" class="htwb.ai.service.SongService">
+    </bean>
+
+    <bean id="jsonMessageConverter"
+          class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+</beans>

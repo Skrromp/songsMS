@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="auth-service:war">
+    <output-path>$PROJECT_DIR$/auth/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>auth-service</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="songsWS-denmax.war">
+      <element id="artifact" artifact-name="auth-service:war exploded" />
+    </root>
+  </artifact>
+</component>

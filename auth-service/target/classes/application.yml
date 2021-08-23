@@ -1,0 +1,22 @@
+server:
+  port: 9004
+
+spring:
+  application:
+    name: auth-service
+  datasource:
+    url: jdbc:postgresql://ec2-54-247-103-43.eu-west-1.compute.amazonaws.com:5432/d9ktgfmuc2pc8b
+    driver-class-name: org.postgresql.Driver
+    username: zdifaoomnofphy
+    password: ea4ec491d3a2bfb8e4e651bfcc06c3416dcdab7408b931b5c742b9ed85053f41
+
+jwt:
+  secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY
+  expiration: 86400
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+    instance:
+      prefer-ip-address: true
