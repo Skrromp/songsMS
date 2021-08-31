@@ -12,9 +12,8 @@
     </parent>
 
     <artifactId>auth</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>auth</name>
-    <url>http://maven.apache.org</url>
+    <packaging>jar</packaging>
 
     <properties>
         <jbcrypt.version>0.4</jbcrypt.version>
@@ -45,10 +44,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.11.1</version>
@@ -70,13 +65,6 @@
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
             <version>${jbcrypt.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <version>2.3.11.RELEASE</version>
-            <scope>test</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->

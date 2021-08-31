@@ -15,30 +15,22 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "\"SongList\"")
+@JsonPropertyOrder({"id","ownerId", "name", "isPrivate", "songs"})
 public class SongList {
 
     @Id
     @TableGenerator(name = "SongList_Gen", initialValue = 0, allocationSize = 10000)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "SongList_Gen")
     @Column(name = "songListId")
-    @JsonProperty("songListId")
     int id;
 
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "ownerId")
-//    @JsonProperty("ownerId")
-//    User ownerId;
+    String ownerId;
 
-    @JsonProperty("name")
     String name;
 
-    @JsonProperty("isPrivate")
-    boolean isPrivate;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    @JoinTable(name = "songList_song", joinColumns = {
-            @JoinColumn(name = "songList_id", referencedColumnName = "songListId")}, inverseJoinColumns = {
-            @JoinColumn(name = "song_id", referencedColumnName = "id")})
-    @JsonProperty("songList")
-    Set<Song> songs;
+    Boolean isPrivate;
+
+    @ManyToMany
+    private Set<Song> songs;
 }

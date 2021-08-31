@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.security.Key;
-import java.util.Date;
 
 @Component
 public class JwtUtil {
@@ -48,7 +47,6 @@ public class JwtUtil {
         }
         return false;
     }
-
 
     public Claims getAllClaimsFromToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();

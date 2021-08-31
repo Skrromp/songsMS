@@ -8,7 +8,7 @@ public class FallbackController {
 
     @GetMapping("/fallback1")
     public String songsFallback() {
-        return "User service is not available";
+        return "songs service is not available";
     }
 
     @GetMapping("/auth-fallback")

@@ -1,7 +1,5 @@
 package htwb.ai.model;
 
-
-import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,6 +13,7 @@ import java.util.Set;
 @Data
 @Builder
 @Table(name = "\"Song\"")
+@Entity
 public class Song {
 
     @Id
@@ -22,7 +21,6 @@ public class Song {
     @Column(name = "id")
     private int id;
 
-    @NotNull
     private String title;
 
     private String artist;
