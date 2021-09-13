@@ -1,24 +1,26 @@
 package htwb.ai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-@Table(name = "\"Song\"")
+@Getter
+@Setter
+@ToString
 @Entity
+@Table(name="song")
 public class Song {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @Column(name = "songId")
     private int id;
 
     private String title;
@@ -29,6 +31,7 @@ public class Song {
 
     private int released;
 
-    @ManyToMany(mappedBy = "songs", cascade = CascadeType.ALL)
+    @ManyToMany(mappedBy = "songs" ,cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<SongList> songLists;
 }

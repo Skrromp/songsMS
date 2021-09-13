@@ -1,36 +1,37 @@
 package htwb.ai.model;
 
 import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 @Builder
 @Entity
-@Table(name = "\"SongList\"")
-@JsonPropertyOrder({"id","ownerId", "name", "isPrivate", "songs"})
+@Table(name = "songList")
 public class SongList {
 
     @Id
-    @TableGenerator(name = "SongList_Gen", initialValue = 0, allocationSize = 10000)
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "SongList_Gen")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "songListId")
-    int id;
+    private int id;
 
-    String ownerId;
+    private String ownerId;
 
-    String name;
+    private String name;
 
-
-    Boolean isPrivate;
+    @JsonProperty("isPrivate")
+    private Boolean isPrivate;
 
     @ManyToMany
+    @JsonProperty("songList")
+    @JoinTable(name = "songList_song", joinColumns = {
+            @JoinColumn(name = "songList_id", referencedColumnName = "songListId")}, inverseJoinColumns = {
+            @JoinColumn(name = "song_id", referencedColumnName = "songId")})
     private Set<Song> songs;
 }

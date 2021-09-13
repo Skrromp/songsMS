@@ -1,0 +1,85 @@
+[
+  {
+    "isPrivate": true,
+    "name": "Ottos Playlist 1",
+    "ownerId": "ootto",
+    "songList": [
+      {
+        "id": 1,
+        "title": "Fetus Deletus",
+        "artist": "Unborn Child",
+        "label": "Abortion Clinic",
+        "released": 2021
+      },
+      {
+        "id": 2,
+        "title": "Drunk",
+        "artist": "Sungazer",
+        "label": "Vol.2",
+        "released": 2019
+      }
+    ]
+  },
+  {
+    "isPrivate": false,
+    "name": "Ottos Playlist 2",
+    "ownerId": "ootto",
+    "songList": [
+      {
+        "id": 3,
+        "title": "Pretty Cvnt",
+        "artist": "Sewerslvt",
+        "label": "Sewer//slvt",
+        "released": 2020
+      },
+      {
+        "id": 4,
+        "title": "Izlel e Delyu Haidutin",
+        "artist": "Valya Balkanska",
+        "label": "Rhodope Songs",
+        "released": 2000
+      }
+    ]
+  },
+  {
+    "isPrivate": true,
+    "name": "Annas Playlist 1",
+    "ownerId": "aanna",
+    "songList": [
+      {
+        "id": 2,
+        "title": "Drunk",
+        "artist": "Sungazer",
+        "label": "Vol.2",
+        "released": 2019
+      },
+      {
+        "id": 3,
+        "title": "Pretty Cvnt",
+        "artist": "Sewerslvt",
+        "label": "Sewer//slvt",
+        "released": 2020
+      }
+    ]
+  },
+  {
+    "isPrivate": false,
+    "name": "Annas Playlist 2",
+    "ownerId": "aanna",
+    "songList": [
+      {
+        "id": 4,
+        "title": "Izlel e Delyu Haidutin",
+        "artist": "Valya Balkanska",
+        "label": "Rhodope Songs"
+      },
+      {
+        "id": 5,
+        "title": "DEUTSCHLAND",
+        "artist": "Rammstein",
+        "label": "RAMMSTEIN",
+        "released": 2019
+      }
+    ]
+  }
+]

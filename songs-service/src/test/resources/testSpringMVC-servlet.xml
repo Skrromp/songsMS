@@ -37,19 +37,19 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:testHibernate.cfg.xml"/>
     </bean>
-    <bean id="userDao" class="htwb.ai.repo.UserDao">
+    <bean id="userDao" class="htwb.ai.htwb.ai.repo.UserDao">
         <constructor-arg>
             <ref bean="sessionFactory"/>
         </constructor-arg>
     </bean>
 
-    <bean id="songDao" class="htwb.ai.repo.SongRepo">
+    <bean id="songDao" class="htwb.ai.htwb.ai.repo.SongRepo">
         <constructor-arg>
             <ref bean="sessionFactory"/>
         </constructor-arg>
     </bean>
 
-    <bean id="songListDao" class="htwb.ai.repo.SongListRepo">
+    <bean id="songListDao" class="htwb.ai.htwb.ai.repo.SongListRepo">
         <constructor-arg>
             <ref bean="sessionFactory"/>
         </constructor-arg>

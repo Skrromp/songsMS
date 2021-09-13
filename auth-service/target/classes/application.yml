@@ -5,10 +5,17 @@ spring:
   application:
     name: auth-service
   datasource:
-    url: jdbc:postgresql://ec2-54-247-103-43.eu-west-1.compute.amazonaws.com:5432/d9ktgfmuc2pc8b
+    url: jdbc:postgresql://ec2-34-249-247-7.eu-west-1.compute.amazonaws.com:5432/d9gbnqodkmje9u
     driver-class-name: org.postgresql.Driver
-    username: zdifaoomnofphy
-    password: ea4ec491d3a2bfb8e4e651bfcc06c3416dcdab7408b931b5c742b9ed85053f41
+    username: rmybrvfrrtvmjz
+    password: fd27eec2db9f2e974a6296324d0d1ad1dc9f71efdb884ece8da45de977872c13
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: create-drop
 
 jwt:
   secret: BvPHGM8C0ia4uOuxxqPD5DTbWC9F9TWvPStp3pb7ARo0oK2mJ3pd3YG4lxA9i8bj6OTbadwezxgeEByY
@@ -18,5 +25,8 @@ eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-    instance:
-      prefer-ip-address: true
+  instance:
+    prefer-ip-address: true
+    hostname: localhost
+    home-page-url: https://${eureka.instance.hostname}/
+

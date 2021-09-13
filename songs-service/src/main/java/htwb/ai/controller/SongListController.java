@@ -7,6 +7,8 @@ import htwb.ai.model.Song;
 import htwb.ai.model.SongList;
 import htwb.ai.repo.SongListRepo;
 import htwb.ai.repo.SongRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,8 +30,10 @@ public class SongListController {
     @Autowired
     SongRepo songRepo;
 
+    private final Logger log = LoggerFactory.getLogger(SongListController.class);
+
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> get(@RequestHeader(name = "accept", required = true) String acceptedContentType, @RequestHeader(name = "authorization", required = true) String ownerId, @PathVariable int id) {
+    public ResponseEntity<String> get(@RequestHeader(name = "accept") String acceptedContentType, @RequestHeader(name = "userId") String ownerId, @PathVariable int id) {
 
         SongList songList;
         ResponseEntity<String> re = null;
@@ -85,9 +89,7 @@ public class SongListController {
     }
 
     @GetMapping(value = "/", produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> getAll(@RequestHeader(name = "accept", required = true) String acceptedContentType, @RequestHeader(name = "authorization", required = true) String ownerId) {
-
-        //authentification check
+    public ResponseEntity<String> getAll(@RequestHeader(name = "accept") String acceptedContentType, @RequestHeader(name = "userId") String ownerId) {
 
         List<SongList> songList;
         songList = songListRepo.findAllByOwnerIdOrIsPrivateFalse(ownerId);
@@ -110,7 +112,7 @@ public class SongListController {
             } else {
                 re = ResponseEntity.ok().contentType(MediaType.APPLICATION_XML).body(xmlString);
             }
-        //map SongList to json
+            //map SongList to json
         } else if (acceptedContentType.contains("json")) {
             ObjectMapper jmapper = new ObjectMapper();
             String jsonString;
@@ -132,12 +134,16 @@ public class SongListController {
         return re;
     }
 
-    @GetMapping(value = "", produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> getAllByUserId(@RequestHeader(name = "accept", required = true) String acceptedContentType, @RequestHeader(name = "authorization", required = true) String ownerId, @RequestParam(required = true, name = "userId") String userIdRequest) {
+    @GetMapping(produces = {"application/json", "application/xml"})
+    public ResponseEntity<String> getAllByUserId(@RequestHeader(name = "accept") String acceptedContentType, @RequestHeader(name = "userId") String ownerId, @RequestParam(name = "requestId") String userIdRequest) {
 
+        log.info(userIdRequest);
         List<SongList> songList;
-
-        songList = songListRepo.findAllByOwnerIdOrIsPrivateFalse(ownerId);
+        if (ownerId.equals(userIdRequest)) {
+            songList = songListRepo.findAllByOwnerId(ownerId);
+        } else {
+            songList = songListRepo.findAllByOwnerIdAndIsPrivateFalse(userIdRequest);
+        }
 
         ResponseEntity re = null;
 
@@ -157,7 +163,7 @@ public class SongListController {
             } else {
                 re = ResponseEntity.ok().contentType(MediaType.APPLICATION_XML).body(xmlString);
             }
-        //map SongList to json
+            //map SongList to json
         } else if (acceptedContentType.contains("json")) {
             ObjectMapper jmapper = new ObjectMapper();
             String jsonString;
@@ -180,7 +186,7 @@ public class SongListController {
     }
 
     @PostMapping(produces = "text/plain")
-    public ResponseEntity<String> postSongList(@RequestBody String json, @RequestHeader(name = "authorization", required = true) String username, HttpServletRequest request) {
+    public ResponseEntity<String> postSongList(@RequestBody String json, @RequestHeader(name = "userId", required = true) String ownerId, HttpServletRequest request) {
 
         String url = request.getRequestURL().toString();
 
@@ -189,13 +195,13 @@ public class SongListController {
         SongList songList;
         try {
             songList = mapper.readValue(json, SongList.class);
-            songList.setOwnerId(username);
+            songList.setOwnerId(ownerId);
         } catch (IOException e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
 
-        if (!songList.getOwnerId().equals(username)) {
+        if (!songList.getOwnerId().equals(ownerId)) {
             return ResponseEntity.badRequest().build();
         }
 
@@ -223,13 +229,13 @@ public class SongListController {
     }
 
     @DeleteMapping(value = "/{id}", produces = "text/plain")
-    public ResponseEntity<String> delete(@PathVariable int id, @RequestHeader(name = "authorization", required = true) String username) {
+    public ResponseEntity<String> delete(@PathVariable int id, @RequestHeader(name = "userId", required = true) String ownerId) {
 
         SongList sl = songListRepo.findSonglistById(id);
 
         if (sl == null) {
             return ResponseEntity.notFound().build();
-        } else if (!sl.getOwnerId().equals(username)) {
+        } else if (!sl.getOwnerId().equals(ownerId)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
 

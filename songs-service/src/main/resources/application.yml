@@ -5,14 +5,23 @@ spring:
   application:
     name: songs-service
   datasource:
-    url: jdbc:postgresql://ec2-54-247-103-43.eu-west-1.compute.amazonaws.com:5432/d9ktgfmuc2pc8b
+    url: jdbc:postgresql://ec2-34-249-247-7.eu-west-1.compute.amazonaws.com:5432/ddsqqfh5rvtg3l
     driver-class-name: org.postgresql.Driver
-    username: zdifaoomnofphy
-    password: ea4ec491d3a2bfb8e4e651bfcc06c3416dcdab7408b931b5c742b9ed85053f41
+    username: uugxhzllszjvus
+    password: 71087fbc685498bedc2ddfe1080b94c767557d4baf0479f041c9fa0892f2ce71
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        show_sql: true
+    hibernate:
+      ddl-auto: create-drop
 
 eureka:
   client:
     service-url:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
-    instance:
-      prefer-ip-address: true
+  instance:
+    prefer-ip-address: true
+
+

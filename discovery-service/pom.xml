@@ -9,8 +9,8 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>discovery-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>discovery</artifactId>
+    <packaging>jar</packaging>
     <name>discovery-service</name>
 
     <dependencies>
@@ -27,17 +27,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <build>
         <finalName>discovery-service</finalName>

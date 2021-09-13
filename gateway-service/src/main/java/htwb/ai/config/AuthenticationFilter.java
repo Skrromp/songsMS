@@ -1,6 +1,9 @@
 package htwb.ai.config;
 
 import io.jsonwebtoken.Claims;
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
@@ -13,6 +16,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 
+
 @RefreshScope
 @Component
 public class AuthenticationFilter implements GatewayFilter {
@@ -21,6 +25,9 @@ public class AuthenticationFilter implements GatewayFilter {
     private RouterValidator routerValidator;
     @Autowired
     private JwtUtil jwtUtil;
+
+    private Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
+
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -37,6 +44,7 @@ public class AuthenticationFilter implements GatewayFilter {
 
             this.populateRequestWithHeaders(exchange, token);
         }
+        log.info("exchange:" + exchange.getRequest().getHeaders().toString());
         return chain.filter(exchange);
     }
 

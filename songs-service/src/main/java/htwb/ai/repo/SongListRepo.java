@@ -11,4 +11,6 @@ public interface SongListRepo extends CrudRepository<SongList, Integer> {
 
     List<SongList> findAllByOwnerIdOrIsPrivateFalse(String ownerId);
     SongList findSonglistById(Integer id);
+    List<SongList> findAllByOwnerIdAndIsPrivateFalse(String ownerId);
+    List<SongList> findAllByOwnerId(String ownerId);
 }

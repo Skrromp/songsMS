@@ -23,7 +23,7 @@ public class SongController {
     SongRepo songRepo;
 
     @GetMapping(value = "/{id}", produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> get(@RequestHeader(name = "accept", required = true) String acceptedContentType, @RequestHeader(name = "authorization", required = true) String authorizationToken, @PathVariable int id) {
+    public ResponseEntity<String> get(@RequestHeader(name = "accept", required = true) String acceptedContentType, @PathVariable int id) {
 
         Song resultSong = songRepo.findSongById(id);
         ResponseEntity re = null;
@@ -62,7 +62,7 @@ public class SongController {
     }
 
     @GetMapping(value = "", produces = {"application/json", "application/xml"})
-    public ResponseEntity<String> getAll(@RequestHeader(name = "accept", required = true) String acceptedContentType, @RequestHeader(name = "authorization", required = true) String authorizationToken) {
+    public ResponseEntity<String> getAll(@RequestHeader(name = "accept", required = true) String acceptedContentType) {
 
         List<Song> songList = (List<Song>) songRepo.findAll();
         ResponseEntity re = null;
@@ -101,7 +101,7 @@ public class SongController {
     }
 
     @PostMapping(produces = "text/plain")
-    public ResponseEntity<String> postSong(@RequestBody String json, @RequestHeader(name = "authorization", required = true) String authorizationToken) {
+    public ResponseEntity<String> postSong(@RequestBody String json) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -127,7 +127,7 @@ public class SongController {
     }
 
     @PutMapping(value = "/{id}", produces = "application/json", consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> put(@PathVariable int id, @RequestBody String json, @RequestHeader(name = "authorization", required = true) String authorizationToken) {
+    public ResponseEntity<String> put(@PathVariable int id, @RequestBody String json) {
 
         ObjectMapper mapper = new ObjectMapper();
         Song song = new Song();
@@ -155,7 +155,7 @@ public class SongController {
     }
 
     @DeleteMapping(value = "/{id}", produces = "text/plain")
-    public ResponseEntity<String> delete(@PathVariable int id, @RequestHeader(name = "authorization", required = true) String ownerId) {
+    public ResponseEntity<String> delete(@PathVariable int id) {
 
         songRepo.deleteById(id);
         if (!songRepo.existsById(id)) {

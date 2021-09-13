@@ -1,18 +1,24 @@
 package htwb.ai.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
+
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
+@Getter
+@Setter
+@ToString
+@Entity
+@Table(name = "appUser")
 public class User {
 
+    @Id
+    @JsonProperty("userId")
     private String id;
-    private String password;
     private String firstname;
     private String lastname;
+    private String password;
 }
